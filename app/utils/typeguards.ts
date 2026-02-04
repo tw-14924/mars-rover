@@ -6,16 +6,7 @@ import {
     type InstructionData,
     type Coordinates,
 } from "../../constants";
-
-const isCoordinates = (array: (string | number)[]): array is Coordinates => {
-    if (array.length !== 2) return false;
-    return array.every((element) => typeof element === "number");
-};
-
-const isDirection = (value: unknown): value is Direction => {
-    if (typeof value !== "string") return false;
-    return Object.values(Direction).includes(value as Direction);
-};
+import { isEnumValue } from "./generics";
 
 const isValidPositionData = (
     array: (string | number)[],
@@ -50,18 +41,21 @@ const isValidInstructionData = (
     return instructionDataArray.every((char) => char in validCharacters);
 };
 
-const isMoveInstruction = (value: unknown): value is MoveInstruction => {
-    if (typeof value !== "string") return false;
+const isCoordinates = (array: (string | number)[]): array is Coordinates => {
+    if (array.length !== 2) return false;
+    return array.every((element) => typeof element === "number");
+};
 
-    return Object.values(MoveInstruction).includes(value as MoveInstruction);
+const isDirection = (value: unknown): value is Direction => {
+    return isEnumValue(Direction, value);
 };
 
 const isRotateInstruction = (value: unknown): value is RotateInstruction => {
-    if (typeof value !== "string") return false;
+    return isEnumValue(RotateInstruction, value);
+};
 
-    return Object.values(RotateInstruction).includes(
-        value as RotateInstruction,
-    );
+const isMoveInstruction = (value: unknown): value is MoveInstruction => {
+    return isEnumValue(MoveInstruction, value);
 };
 
 export {
