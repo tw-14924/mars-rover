@@ -1,19 +1,15 @@
 import { moveRover, rotateRover } from "../../app/services/controlRover";
 import { describe, test, expect } from "bun:test";
-import { Direction } from "../../constants";
+import { Direction, RotateInstruction, MoveInstruction } from "../../constants";
 
 describe("rotateRover", () => {
     test("should update the current direction of a rover given a rotation instruction", () => {
-        expect(rotateRover([1, 2, Direction.NORTH], "L")).toEqual([
-            1,
-            2,
-            Direction.WEST,
-        ]);
-        expect(rotateRover([1, 2, Direction.SOUTH], "R")).toEqual([
-            1,
-            2,
-            Direction.WEST,
-        ]);
+        expect(
+            rotateRover([1, 2, Direction.NORTH], RotateInstruction.LEFT),
+        ).toEqual([1, 2, Direction.WEST]);
+        expect(
+            rotateRover([1, 2, Direction.SOUTH], RotateInstruction.RIGHT),
+        ).toEqual([1, 2, Direction.WEST]);
     });
 });
 

@@ -1,10 +1,10 @@
 import {
     Direction,
+    MoveInstruction,
+    RotateInstruction,
     type PositionData,
     type InstructionData,
-    type MoveInstruction,
     type Coordinates,
-    type RotateInstruction,
 } from "../../constants";
 
 const isCoordinates = (array: (string | number)[]): array is Coordinates => {
@@ -50,16 +50,18 @@ const isValidInstructionData = (
     return instructionDataArray.every((char) => char in validCharacters);
 };
 
-const isMoveInstruction = (value: string): value is MoveInstruction => {
-    const moveInstruction: MoveInstruction[] = ["M"];
+const isMoveInstruction = (value: unknown): value is MoveInstruction => {
+    if (typeof value !== "string") return false;
 
-    return moveInstruction.includes(value as MoveInstruction);
+    return Object.values(MoveInstruction).includes(value as MoveInstruction);
 };
 
-const isRotateInstruction = (value: string): value is RotateInstruction => {
-    const rotateInstruction: RotateInstruction[] = ["L", "R"];
+const isRotateInstruction = (value: unknown): value is RotateInstruction => {
+    if (typeof value !== "string") return false;
 
-    return rotateInstruction.includes(value as RotateInstruction);
+    return Object.values(RotateInstruction).includes(
+        value as RotateInstruction,
+    );
 };
 
 export {

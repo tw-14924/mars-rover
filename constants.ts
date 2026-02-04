@@ -5,18 +5,19 @@ enum Direction {
     WEST = "W",
 }
 
+enum RotateInstruction {
+    LEFT = "L",
+    RIGHT = "R",
+}
+
+enum MoveInstruction {
+    MOVE = "M",
+}
+
 type PositionData = [number, number, Direction];
-type RotateInstruction = "L" | "R";
-type MoveInstruction = "M";
 type InstructionData = RotateInstruction | MoveInstruction;
 type Coordinates = [number, number];
 
-export { Direction };
+export { Direction, RotateInstruction, MoveInstruction };
 
-export type {
-    PositionData,
-    RotateInstruction,
-    MoveInstruction,
-    InstructionData,
-    Coordinates,
-};
+export type { PositionData, InstructionData, Coordinates };
