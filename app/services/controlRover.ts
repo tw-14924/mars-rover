@@ -1,22 +1,22 @@
-import type {
+import {
     Direction,
-    Coordinates,
-    PositionData,
-    RotateInstruction,
+    type Coordinates,
+    type PositionData,
+    type RotateInstruction,
 } from "../../constants";
 
 const rotations: Record<Direction, Record<RotateInstruction, Direction>> = {
-    N: { L: "W", R: "E" },
-    S: { L: "E", R: "W" },
-    E: { L: "N", R: "S" },
-    W: { L: "S", R: "N" },
+    [Direction.NORTH]: { L: Direction.WEST, R: Direction.EAST },
+    [Direction.SOUTH]: { L: Direction.EAST, R: Direction.WEST },
+    [Direction.EAST]: { L: Direction.NORTH, R: Direction.SOUTH },
+    [Direction.WEST]: { L: Direction.SOUTH, R: Direction.NORTH },
 };
 
 const moves: Record<Direction, { dx: number; dy: number }> = {
-    N: { dx: 0, dy: 1 },
-    S: { dx: 0, dy: -1 },
-    E: { dx: 1, dy: 0 },
-    W: { dx: -1, dy: 0 },
+    [Direction.NORTH]: { dx: 0, dy: 1 },
+    [Direction.SOUTH]: { dx: 0, dy: -1 },
+    [Direction.EAST]: { dx: 1, dy: 0 },
+    [Direction.WEST]: { dx: -1, dy: 0 },
 };
 
 const rotateRover = (

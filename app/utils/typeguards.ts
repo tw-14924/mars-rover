@@ -1,9 +1,20 @@
-// prettier-ignore
-import type { Direction, PositionData, InstructionData, MoveInstruction, Coordinates, RotateInstruction } from "../../constants";
+import {
+    Direction,
+    type PositionData,
+    type InstructionData,
+    type MoveInstruction,
+    type Coordinates,
+    type RotateInstruction,
+} from "../../constants";
 
 const isCoordinates = (array: (string | number)[]): array is Coordinates => {
     if (array.length !== 2) return false;
     return array.every((element) => typeof element === "number");
+};
+
+const isDirection = (value: unknown): value is Direction => {
+    if (typeof value !== "string") return false;
+    return Object.values(Direction).includes(value as Direction);
 };
 
 const isValidPositionData = (
@@ -13,12 +24,8 @@ const isValidPositionData = (
 
     const [x, y, direction] = array;
 
-    const directions: Direction[] = ["N", "S", "E", "W"];
-
     return (
-        typeof x === "number" &&
-        typeof y === "number" &&
-        directions.includes(direction as Direction)
+        typeof x === "number" && typeof y === "number" && isDirection(direction)
     );
 };
 
