@@ -14,16 +14,16 @@ const output: InstructionSet = {
     plateauLimits: [5, 5],
     rovers: [
         {
-            startPosition: {
-                currentCoordinates: [1, 2],
-                currentDirection: "N",
+            position: {
+                coordinates: [1, 2],
+                direction: "N",
             },
             instructions: ["L", "M", "L", "M", "L", "M", "L", "M", "M"],
         },
         {
-            startPosition: {
-                currentCoordinates: [3, 3],
-                currentDirection: "E",
+            position: {
+                coordinates: [3, 3],
+                direction: "E",
             },
             instructions: ["M", "M", "R", "M", "M", "R", "M", "R", "R", "M"],
         },

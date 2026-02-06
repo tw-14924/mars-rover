@@ -1,63 +1,58 @@
-import { getPlateauLimits } from "./app/services/getPlateauLimits";
-import { getAllRoverCoordinates } from "./app/services/getAllRoverCoordinates";
-import {
-    isMoveInstruction,
-    isRotateInstruction,
-    isValidInstructionData,
-    isValidPositionData,
-} from "./app/utils/typeguards";
-import { moveRover, rotateRover } from "./app/services/controlRover";
-import type { Coordinates } from "./constants";
+import { isMoveInstruction, isRotateInstruction } from "./src/typeguards";
+import { moveRover, rotateRover } from "./src/engine/controlRover";
+import type { ProcessedResults, RawInput } from "./src/definitions";
+import { parseInstructionSet } from "./src/parsers/instructionSetParser";
 
-const processInstructionSet = (
-    instructionSet: (string | number)[][],
-): (string | number)[][] => {
-    console.log("hello world");
+const processInstructionSet = (rawInput: RawInput): ProcessedResults => {
+    const returnArray: ProcessedResults = [];
 
-    const returnArray = [];
-    const plateauLimits = getPlateauLimits(instructionSet);
-    let allRoverCoordinates = getAllRoverCoordinates(instructionSet);
+    try {
+        const { plateauLimits, rovers } = parseInstructionSet(rawInput);
 
-    console.log("allRoverCoordinates: ", allRoverCoordinates);
-
-    const roversInfo = instructionSet.slice(1);
-    for (let index = 0; index < roversInfo.length; index += 2) {
-        const positionData = roversInfo[index];
-        if (positionData === undefined) {
-            throw new Error("Error fetching rover's positionData");
-        }
-        if (!isValidPositionData(positionData)) {
-            throw new Error("Invalid position data");
+        if (rovers.length === 0) {
+            return returnArray;
         }
 
-        const instructionData = roversInfo[index + 1];
-        if (instructionData === undefined) {
-            throw new Error("Error fetching rover's instructionData");
-        }
+        for (const currentRover of rovers) {
+            let updatedRoverPosition = currentRover.position;
 
-        if (!isValidInstructionData(instructionData)) {
-            throw new Error("Invalid instruction data");
-        }
+            const otherRoversCoordinates = rovers
+                .filter((rover) => rover !== currentRover)
+                .map((rover) => rover.position.coordinates);
 
-        let currentPosition = positionData;
-        const reducedRoverCoordinates = allRoverCoordinates.filter(
-            (x) => x === currentPosition.slice(0, 2),
-        );
+            for (const instruction of currentRover.instructions) {
+                console.log("start position: ", currentRover.position);
+                console.log("Instruction: ", instruction);
 
-        instructionData[0]!.split("").forEach((instruction) => {
-            if (isMoveInstruction(instruction)) {
-                currentPosition = moveRover(
-                    currentPosition,
-                    plateauLimits,
-                    reducedRoverCoordinates,
-                );
-            } else if (isRotateInstruction(instruction)) {
-                currentPosition = rotateRover(currentPosition, instruction);
+                if (isMoveInstruction(instruction)) {
+                    console.log("performing move instruction");
+
+                    updatedRoverPosition = moveRover(
+                        updatedRoverPosition,
+                        plateauLimits,
+                        otherRoversCoordinates,
+                    );
+                } else if (isRotateInstruction(instruction)) {
+                    console.log("performing rotate instruction");
+                    updatedRoverPosition = rotateRover(
+                        updatedRoverPosition,
+                        instruction,
+                    );
+                }
+
+                console.log("updatedRoverPosition: ", updatedRoverPosition);
+                console.log("***********************************");
             }
-        });
 
-        allRoverCoordinates.push(currentPosition.slice(0, 2) as Coordinates);
-        returnArray.push(currentPosition);
+            currentRover.position = updatedRoverPosition;
+            returnArray.push([
+                updatedRoverPosition.coordinates[0],
+                updatedRoverPosition.coordinates[1],
+                updatedRoverPosition.direction,
+            ]);
+        }
+    } catch (error) {
+        console.error("Something went wrong:", error);
     }
 
     return returnArray;

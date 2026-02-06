@@ -11,8 +11,8 @@ const Direction = {
 type Direction = (typeof Direction)[keyof typeof Direction];
 
 type PositionData = {
-    currentCoordinates: Coordinates;
-    currentDirection: Direction;
+    coordinates: Coordinates;
+    direction: Direction;
 };
 
 const Instruction = {
@@ -24,7 +24,7 @@ const Instruction = {
 type Instruction = (typeof Instruction)[keyof typeof Instruction];
 
 type RoverData = {
-    startPosition: PositionData;
+    position: PositionData;
     instructions: Instruction[];
 };
 
@@ -33,6 +33,17 @@ type InstructionSet = {
     rovers: RoverData[];
 };
 
+type FinalPosition = [number, number, Direction];
+
+type ProcessedResults = FinalPosition[];
+
 export { Direction, Instruction };
 
-export type { RawInput, Coordinates, PositionData, RoverData, InstructionSet };
+export type {
+    RawInput,
+    Coordinates,
+    PositionData,
+    RoverData,
+    InstructionSet,
+    ProcessedResults,
+};

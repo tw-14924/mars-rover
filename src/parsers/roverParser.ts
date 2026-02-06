@@ -28,8 +28,8 @@ const parseRoverPosition = (positionRow: unknown[]): PositionData => {
     }
 
     return {
-        currentCoordinates: [x, y],
-        currentDirection: direction as Direction,
+        coordinates: [x, y],
+        direction: direction as Direction,
     };
 };
 
@@ -78,7 +78,7 @@ export const parseRoverData = (roverRows: unknown[]): RoverData[] => {
         }
 
         rovers.push({
-            startPosition: parseRoverPosition(positionRow),
+            position: parseRoverPosition(positionRow),
             instructions: parseRoverInstructions(instructionRow),
         });
     }

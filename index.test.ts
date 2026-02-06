@@ -1,5 +1,6 @@
 import { processInstructionSet } from ".";
 import { describe, test, expect } from "bun:test";
+import type { ProcessedResults } from "./src/definitions";
 
 // prettier-ignore
 const testInput = [
@@ -9,7 +10,7 @@ const testInput = [
     [3, 3, "E"], 
     ["MMRMMRMRRM"]
 ];
-const expectedOutput = [
+const expectedOutput: ProcessedResults = [
     [1, 3, "N"],
     [5, 1, "E"],
 ];

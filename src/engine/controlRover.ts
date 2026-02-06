@@ -1,15 +1,30 @@
 import {
     Direction,
+    Instruction,
     type Coordinates,
     type PositionData,
-    type RotateInstruction,
-} from "../../constants";
+} from "../definitions";
 
-const rotations: Record<Direction, Record<RotateInstruction, Direction>> = {
-    [Direction.NORTH]: { L: Direction.WEST, R: Direction.EAST },
-    [Direction.SOUTH]: { L: Direction.EAST, R: Direction.WEST },
-    [Direction.EAST]: { L: Direction.NORTH, R: Direction.SOUTH },
-    [Direction.WEST]: { L: Direction.SOUTH, R: Direction.NORTH },
+const rotations: Record<
+    Direction,
+    Record<Exclude<Instruction, typeof Instruction.MOVE>, Direction>
+> = {
+    [Direction.NORTH]: {
+        [Instruction.LEFT]: Direction.WEST,
+        [Instruction.RIGHT]: Direction.EAST,
+    },
+    [Direction.SOUTH]: {
+        [Instruction.LEFT]: Direction.EAST,
+        [Instruction.RIGHT]: Direction.WEST,
+    },
+    [Direction.EAST]: {
+        [Instruction.LEFT]: Direction.NORTH,
+        [Instruction.RIGHT]: Direction.SOUTH,
+    },
+    [Direction.WEST]: {
+        [Instruction.LEFT]: Direction.SOUTH,
+        [Instruction.RIGHT]: Direction.NORTH,
+    },
 };
 
 const moves: Record<Direction, { dx: number; dy: number }> = {
@@ -21,12 +36,15 @@ const moves: Record<Direction, { dx: number; dy: number }> = {
 
 const rotateRover = (
     position: PositionData,
-    instruction: RotateInstruction,
+    instruction: Exclude<Instruction, typeof Instruction.MOVE>,
 ): PositionData => {
-    const [x, y, direction] = position;
+    const direction = position.direction;
     const newDirection = rotations[direction][instruction];
 
-    return [x, y, newDirection];
+    return {
+        coordinates: position.coordinates,
+        direction: newDirection,
+    };
 };
 
 const moveRover = (
@@ -34,7 +52,10 @@ const moveRover = (
     limits: Coordinates,
     allRoverCoordinates: Coordinates[],
 ): PositionData => {
-    const [x, y, direction] = position;
+    const coordinates = position.coordinates;
+    const direction = position.direction;
+    const x = coordinates[0];
+    const y = coordinates[1];
     const { dx, dy } = moves[direction];
 
     const updatedX = x + dx;
@@ -48,7 +69,10 @@ const moveRover = (
         throw new Error("Instruction causes rover collision");
     }
 
-    return [updatedX, updatedY, direction];
+    return {
+        coordinates: [updatedX, updatedY],
+        direction: direction,
+    };
 };
 
 const isExceedPlateau = (x1: number, y1: number, x2: number, y2: number) => {
@@ -57,7 +81,6 @@ const isExceedPlateau = (x1: number, y1: number, x2: number, y2: number) => {
 
 // prettier-ignore
 const isCollide = (roverCoordinates: Coordinates, allRoverCoordinates: Coordinates[] ) => {
-    console.log("roverCoordinates: ", roverCoordinates)
     return allRoverCoordinates.some(
         (coord) => coord[0] === roverCoordinates[0] && coord[1] === roverCoordinates[1]
     )
