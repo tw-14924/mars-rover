@@ -1,21 +1,17 @@
-import {
-    isValidInstructionData,
-    isMoveInstruction,
-} from "../../src/typeguards";
+import { isMoveInstruction, isRotateInstruction } from "../../src/typeguards";
 import { describe, test, expect } from "bun:test";
 
-describe("isValidInstructionData", () => {
-    test("should return true if instructionData is valid", () => {
-        expect(isValidInstructionData(["ABC"])).toBeFalse();
-        expect(isValidInstructionData(["ABM"])).toBeFalse();
-        expect(isValidInstructionData([123])).toBeFalse();
-        expect(isValidInstructionData(["MMM"])).toBeTrue();
-    });
+describe("isRotateInstruction", () => {
+  test("should return true if instruction value is 'L' ", () => {
+    expect(isRotateInstruction("X")).toBeFalse();
+    expect(isRotateInstruction("L")).toBeTrue();
+    expect(isRotateInstruction("R")).toBeTrue();
+  });
 });
 
 describe("isMoveInstruction", () => {
-    test("should return true if instruction value is 'M' ", () => {
-        expect(isMoveInstruction("F")).toBeFalse();
-        expect(isMoveInstruction("M")).toBeTrue();
-    });
+  test("should return true if instruction value is 'M' ", () => {
+    expect(isMoveInstruction("F")).toBeFalse();
+    expect(isMoveInstruction("M")).toBeTrue();
+  });
 });
