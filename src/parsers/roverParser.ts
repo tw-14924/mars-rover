@@ -27,7 +27,10 @@ const parseRoverPosition = (positionRow: unknown[]): PositionData => {
         );
     }
 
-    return [x, y, direction as Direction];
+    return {
+        currentCoordinates: [x, y],
+        currentDirection: direction as Direction,
+    };
 };
 
 const parseRoverInstructions = (instructionRow: unknown[]): Instruction[] => {

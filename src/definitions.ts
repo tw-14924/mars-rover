@@ -10,7 +10,10 @@ const Direction = {
 } as const;
 type Direction = (typeof Direction)[keyof typeof Direction];
 
-type PositionData = [number, number, Direction];
+type PositionData = {
+    currentCoordinates: Coordinates;
+    currentDirection: Direction;
+};
 
 const Instruction = {
     LEFT: "L",

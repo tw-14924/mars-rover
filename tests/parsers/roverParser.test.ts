@@ -7,7 +7,10 @@ describe("parseRoverData", () => {
         const input: unknown[] = [[1, 2, "N"], ["LMLMLMLMM"]];
         const output: RoverData[] = [
             {
-                startPosition: [1, 2, "N"],
+                startPosition: {
+                    currentCoordinates: [1, 2],
+                    currentDirection: "N",
+                },
                 instructions: ["L", "M", "L", "M", "L", "M", "L", "M", "M"],
             },
         ];
