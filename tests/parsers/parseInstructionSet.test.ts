@@ -1,9 +1,9 @@
-import type { InstructionSet, RawInput } from "../../src/definitions";
-import { parseInstructionSet } from "../../src/parsers/instructionSetParser";
+import type { InstructionSet } from "../../src/definitions";
+import { parseInstructionSet } from "../../src/parsers/parseInstructionSet";
 import { describe, test, expect } from "bun:test";
 
 // prettier-ignore
-const input: RawInput = [
+const input = [
     [5, 5],
     [1, 2, "N"],
     ["LMLMLMLMM"],
@@ -32,22 +32,21 @@ const output: InstructionSet = {
 
 describe("parseInstructionSet", () => {
     describe("happy path", () => {
-        test("should return a matching InstructionSet object given a RawInput", () => {
+        test("should return a valid InstructionSet object given a valid input", () => {
             expect(parseInstructionSet(input)).toEqual(output);
         });
     });
 
     describe("unhappy path", () => {
         test("should throw if raw input is not an array", () => {
-            expect(() => parseInstructionSet("a" as any)).toThrow(
-                "Input must be an array",
-            );
+            expect(() => parseInstructionSet("a")).toThrow(/expected array, received string/i);
+            expect(() => parseInstructionSet({})).toThrow(/expected array, received object/i);
+            expect(() => parseInstructionSet(null)).toThrow(/expected array, received object/i);
+            expect(() => parseInstructionSet(undefined)).toThrow(/expected array, received undefined/i);
         });
 
-        test("should throw if plateau limits row is undefined", () => {
-            expect(() => parseInstructionSet([undefined as any])).toThrow(
-                "Plateau row is missing",
-            );
+        test("should throw if raw input is an empty array", () => {
+            expect(() => parseInstructionSet([])).toThrow(/expected non-empty array/);
         });
     });
 });

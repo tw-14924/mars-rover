@@ -1,7 +1,7 @@
 import { isMoveInstruction, isRotateInstruction } from "./src/typeguards";
 import { moveRover, rotateRover } from "./src/engine/controlRover";
 import type { ProcessedResults, RawInput } from "./src/definitions";
-import { parseInstructionSet } from "./src/parsers/instructionSetParser";
+import { parseInstructionSet } from "./src/parsers/parseInstructionSet";
 
 const processInstructionSet = (rawInput: RawInput): ProcessedResults => {
     const returnArray: ProcessedResults = [];
@@ -27,17 +27,10 @@ const processInstructionSet = (rawInput: RawInput): ProcessedResults => {
                 if (isMoveInstruction(instruction)) {
                     console.log("performing move instruction");
 
-                    updatedRoverPosition = moveRover(
-                        updatedRoverPosition,
-                        plateauLimits,
-                        otherRoversCoordinates,
-                    );
+                    updatedRoverPosition = moveRover(updatedRoverPosition, plateauLimits, otherRoversCoordinates);
                 } else if (isRotateInstruction(instruction)) {
                     console.log("performing rotate instruction");
-                    updatedRoverPosition = rotateRover(
-                        updatedRoverPosition,
-                        instruction,
-                    );
+                    updatedRoverPosition = rotateRover(updatedRoverPosition, instruction);
                 }
 
                 console.log("updatedRoverPosition: ", updatedRoverPosition);
