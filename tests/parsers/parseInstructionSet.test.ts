@@ -38,14 +38,14 @@ describe("parseInstructionSet", () => {
     });
 
     describe("unhappy path", () => {
-        test("should throw if raw input is not an array", () => {
+        test("should throw if input is not an array", () => {
             expect(() => parseInstructionSet("a")).toThrow(/expected array, received string/i);
             expect(() => parseInstructionSet({})).toThrow(/expected array, received object/i);
             expect(() => parseInstructionSet(null)).toThrow(/expected array, received object/i);
             expect(() => parseInstructionSet(undefined)).toThrow(/expected array, received undefined/i);
         });
 
-        test("should throw if raw input is an empty array", () => {
+        test("should throw if input is an empty array", () => {
             expect(() => parseInstructionSet([])).toThrow(/expected non-empty array/);
         });
     });

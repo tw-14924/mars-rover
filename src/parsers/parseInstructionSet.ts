@@ -1,5 +1,5 @@
 import type { InstructionSet } from "../definitions";
-import { parsePlateauLimits } from "./plateauLimitParser";
+import { parsePlateauLimits } from "./parsePlateauLimits";
 import { parseRoverData } from "./roverParser";
 
 export const parseInstructionSet = (input: unknown): InstructionSet => {
