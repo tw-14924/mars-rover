@@ -1,6 +1,6 @@
 import type { InstructionSet } from "../definitions";
 import { parsePlateauLimits } from "./parsePlateauLimits";
-import { parseRoverData } from "./roverParser";
+import { parseRover } from "./parseRover";
 
 export const parseInstructionSet = (input: unknown): InstructionSet => {
     const context = "parseInstructionSet";
@@ -16,7 +16,7 @@ export const parseInstructionSet = (input: unknown): InstructionSet => {
     const [plateauRow, ...roverRows] = input;
 
     const plateauLimits = parsePlateauLimits(plateauRow);
-    const rovers = parseRoverData(roverRows);
+    const rovers = parseRover(roverRows);
 
     return { plateauLimits, rovers };
 };
