@@ -1,5 +1,5 @@
 import type { Coordinates } from "../definitions";
-import { parseCoordinate } from "./parserUtils";
+import { parseCoordinate } from "./parseCoordinate";
 
 export const parsePlateauLimits = (input: unknown): Coordinates => {
     const context = "parsePlateauLimits";
@@ -14,8 +14,8 @@ export const parsePlateauLimits = (input: unknown): Coordinates => {
 
     const [rawX, rawY] = input;
 
-    const x = parseCoordinate(rawX, "plateau limits");
-    const y = parseCoordinate(rawY, "plateau limits");
+    const x = parseCoordinate(rawX);
+    const y = parseCoordinate(rawY);
 
     return [x, y];
 };
