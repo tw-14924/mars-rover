@@ -1,28 +1,36 @@
 import { Instruction } from "../definitions";
 import { isInstruction } from "../typeguards";
 
-export const parseRoverInstructions = (instructionRow: unknown[]): Instruction[] => {
+export const parseRoverInstructions = (input: unknown): Instruction[] => {
+    const context = "parseRoverInstructions";
+
+    if (!Array.isArray(input)) {
+        throw new Error(`${context}: expected array, received '${typeof input}'`);
+    }
+
+    if (input.length !== 1) {
+        throw new Error(`${context}: expected 1 element in array, received ${input.length}`);
+    }
+
+    const [instructionString] = input;
+
+    if (typeof instructionString !== "string") {
+        throw new Error(`${context}: expected string, received '${typeof instructionString}'`);
+    }
+
+    if (instructionString.length === 0) {
+        throw new Error(`${context}: expected non-empty string, received empty string`);
+    }
+
     const validatedInstructions: Instruction[] = [];
 
-    if (instructionRow.length !== 1) {
-        throw new Error(`rover instruction: instructionRow should have 1 value only, got ${instructionRow.length}`);
-    }
+    const instructionChars = instructionString.split("");
 
-    const [instruction] = instructionRow;
-
-    if (typeof instruction !== "string") {
-        throw new Error("rover instruction: instruction should be string type");
-    }
-
-    const instructionArray = instruction.split("");
-
-    for (const instruction of instructionArray) {
-        if (!isInstruction(instruction)) {
-            throw new Error(
-                `rover instruction: instruction should be one of ${Object.values(Instruction).join(", ")}, but got ${instruction}`,
-            );
+    for (const char of instructionChars) {
+        if (!isInstruction(char)) {
+            throw new Error(`${context}: expected one of [${Object.values(Instruction)}], received '${char}'`);
         }
-        validatedInstructions.push(instruction);
+        validatedInstructions.push(char);
     }
 
     return validatedInstructions;

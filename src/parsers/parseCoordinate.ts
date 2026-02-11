@@ -2,7 +2,7 @@ export const parseCoordinate = (input: unknown): number => {
     const context = "parseCoordinate";
 
     if (typeof input !== "number" && typeof input !== "string") {
-        throw new Error(`${context}: expected number or string, received ${typeof input}`);
+        throw new Error(`${context}: expected number or string, received '${typeof input}'`);
     }
 
     if (typeof input === "string" && input.trim() === "") {

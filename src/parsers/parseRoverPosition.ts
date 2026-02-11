@@ -1,23 +1,23 @@
-import { Direction, type PositionData } from "../definitions";
-import { isDirection } from "../typeguards";
+import { type PositionData } from "../definitions";
 import { parseCoordinate } from "./parseCoordinate";
+import { parseDirection } from "./parseDirection";
 
-export const parseRoverPosition = (positionRow: unknown[]): PositionData => {
-    if (positionRow.length !== 3) {
-        throw new Error(`rover position: positionRow should have 3 values, but got ${positionRow.length}`);
+export const parseRoverPosition = (input: unknown): PositionData => {
+    const context = "parseRoverPosition";
+
+    if (!Array.isArray(input)) {
+        throw new Error(`${context}: expected array, received '${typeof input}'`);
     }
 
-    const [rawX, rawY, rawDirection] = positionRow;
+    if (input.length !== 3) {
+        throw new Error(`${context}: expected 3 elements in array, received ${input.length}`);
+    }
+
+    const [rawX, rawY, rawDirection] = input;
 
     const x = parseCoordinate(rawX);
     const y = parseCoordinate(rawY);
-
-    const direction = String(rawDirection).toUpperCase();
-    if (!isDirection(direction)) {
-        throw new Error(
-            `rover direction: direction should be one of ${Object.values(Direction).join(", ")}, but got ${direction}`,
-        );
-    }
+    const direction = parseDirection(rawDirection);
 
     return {
         coordinates: [x, y],

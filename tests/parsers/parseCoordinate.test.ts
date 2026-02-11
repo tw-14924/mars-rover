@@ -12,24 +12,24 @@ describe("parseCoordinate", () => {
 
     describe("unhappy path", () => {
         test("should throw if input is neither a number nor string is null", () => {
-            expect(() => parseCoordinate(null)).toThrow(/expected number or string, received object/i);
-            expect(() => parseCoordinate(undefined)).toThrow(/expected number or string, received undefined/i);
-            expect(() => parseCoordinate(true)).toThrow(/expected number or string, received boolean/i);
-            expect(() => parseCoordinate([])).toThrow(/expected number or string, received object/i);
+            expect(() => parseCoordinate(null)).toThrow("expected number or string, received 'object'");
+            expect(() => parseCoordinate(undefined)).toThrow("expected number or string, received 'undefined'");
+            expect(() => parseCoordinate(true)).toThrow("expected number or string, received 'boolean'");
+            expect(() => parseCoordinate([])).toThrow("expected number or string, received 'object'");
         });
 
         test("should throw if input is an empty value", () => {
-            expect(() => parseCoordinate("")).toThrow(/expected non-empty value, received empty value/i);
-            expect(() => parseCoordinate("   ")).toThrow(/expected non-empty value, received empty value/i);
+            expect(() => parseCoordinate("")).toThrow("expected non-empty value, received empty value");
+            expect(() => parseCoordinate("   ")).toThrow("expected non-empty value, received empty value");
         });
 
         test("should throw if coordinate is not an integer", () => {
-            expect(() => parseCoordinate(1.5)).toThrow(/expected an integer, received 1.5/i);
-            expect(() => parseCoordinate("a")).toThrow(/expected an integer, received NaN/);
+            expect(() => parseCoordinate(1.5)).toThrow("expected an integer, received 1.5");
+            expect(() => parseCoordinate("a")).toThrow("expected an integer, received NaN");
         });
 
         test("should throw if coordinate is not positive", () => {
-            expect(() => parseCoordinate(-1)).toThrow(/expected a non-negative integer, received -1/i);
+            expect(() => parseCoordinate(-1)).toThrow("expected a non-negative integer, received -1");
         });
     });
 });

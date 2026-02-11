@@ -2,20 +2,18 @@ import { type RoverData } from "../definitions";
 import { parseRoverInstructions } from "./parseRoverInstructions";
 import { parseRoverPosition } from "./parseRoverPosition";
 
-export const parseRover = (roverRows: unknown[]): RoverData[] => {
-    if (roverRows.length % 2 !== 0) {
-        throw new Error("rover data: data should be in pairs");
+export const parseRover = (input: unknown[]): RoverData[] => {
+    const context = "parseRover";
+
+    if (input.length % 2 !== 0) {
+        throw new Error(`${context}: expected data pairs, received ${input.length} rows`);
     }
 
     const rovers: RoverData[] = [];
 
-    for (let i = 0; i < roverRows.length; i += 2) {
-        const positionRow = roverRows[i];
-        const instructionRow = roverRows[i + 1];
-
-        if (!Array.isArray(positionRow) || !Array.isArray(instructionRow)) {
-            throw new Error("rover data: positionRow and instructionRow should be arrays");
-        }
+    for (let i = 0; i < input.length; i += 2) {
+        const positionRow = input[i];
+        const instructionRow = input[i + 1];
 
         rovers.push({
             position: parseRoverPosition(positionRow),
