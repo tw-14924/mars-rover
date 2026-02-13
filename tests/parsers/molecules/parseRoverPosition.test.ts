@@ -1,6 +1,6 @@
 import { describe, test, expect } from "bun:test";
-import { Direction, type PositionData } from "../../src/definitions";
-import { parseRoverPosition } from "../../src/parsers/parseRoverPosition";
+import { Direction, type PositionData } from "../../../src/definitions";
+import { parseRoverPosition } from "../../../src/parsers/molecules/parseRoverPosition";
 
 describe("parseRoverPosition", () => {
     describe("happy path", () => {

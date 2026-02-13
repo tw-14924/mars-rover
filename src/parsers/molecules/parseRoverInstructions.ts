@@ -1,5 +1,5 @@
-import { Instruction } from "../definitions";
-import { isInstruction } from "../typeguards";
+import { Instruction } from "../../definitions";
+import { isInstruction } from "../../typeguards";
 
 export const parseRoverInstructions = (input: unknown): Instruction[] => {
     const context = "parseRoverInstructions";

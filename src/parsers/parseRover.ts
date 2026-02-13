@@ -1,6 +1,5 @@
 import { type RoverData } from "../definitions";
-import { parseRoverInstructions } from "./parseRoverInstructions";
-import { parseRoverPosition } from "./parseRoverPosition";
+import { parseRoverPosition, parseRoverInstructions } from "./molecules";
 
 export const parseRover = (input: unknown[]): RoverData[] => {
     const context = "parseRover";

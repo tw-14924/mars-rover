@@ -1,5 +1,5 @@
 import { describe, test, expect } from "bun:test";
-import { parsePlateauLimits } from "../../src/parsers/parsePlateauLimits";
+import { parsePlateauLimits } from "../../../src/parsers/molecules/";
 
 describe("parsePlateauLimits", () => {
     describe("happy path", () => {

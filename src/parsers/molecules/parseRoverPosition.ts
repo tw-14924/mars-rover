@@ -1,5 +1,5 @@
-import { type PositionData } from "../definitions";
-import { parseCoordinate, parseDirection } from "./atoms";
+import { type PositionData } from "../../definitions";
+import { parseCoordinate, parseDirection } from "../atoms";
 
 export const parseRoverPosition = (input: unknown): PositionData => {
     const context = "parseRoverPosition";

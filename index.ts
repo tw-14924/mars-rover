@@ -1,7 +1,7 @@
 import { isMoveInstruction, isRotateInstruction } from "./src/typeguards";
 import { moveRover, rotateRover } from "./src/engine/controlRover";
 import type { ProcessedResults, RawInput } from "./src/definitions";
-import { parseInstructionSet } from "./src/parsers/parseInstructionSet";
+import { parseInstructionSet } from "./src/parsers";
 
 const processInstructionSet = (rawInput: RawInput): ProcessedResults => {
     const returnArray: ProcessedResults = [];
