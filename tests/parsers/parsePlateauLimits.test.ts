@@ -1,5 +1,5 @@
-import { parsePlateauLimits } from "../../src/parsers/parsePlateauLimits";
 import { describe, test, expect } from "bun:test";
+import { parsePlateauLimits } from "../../src/parsers/parsePlateauLimits";
 
 describe("parsePlateauLimits", () => {
     describe("happy path", () => {

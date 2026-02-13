@@ -1,5 +1,5 @@
-import { parseCoordinate } from "../../src/parsers/parseCoordinate";
 import { describe, test, expect } from "bun:test";
+import { parseCoordinate } from "../../../src/parsers/atoms";
 
 describe("parseCoordinate", () => {
     describe("happy path", () => {

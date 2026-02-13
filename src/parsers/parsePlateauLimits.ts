@@ -1,5 +1,5 @@
 import type { Coordinates } from "../definitions";
-import { parseCoordinate } from "./parseCoordinate";
+import { parseCoordinate } from "./atoms";
 
 export const parsePlateauLimits = (input: unknown): Coordinates => {
     const context = "parsePlateauLimits";

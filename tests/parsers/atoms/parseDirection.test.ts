@@ -1,5 +1,5 @@
-import { Direction } from "../../src/definitions";
-import { parseDirection } from "../../src/parsers/parseDirection";
+import { Direction } from "../../../src/definitions";
+import { parseDirection } from "../../../src/parsers/atoms";
 import { describe, test, expect } from "bun:test";
 
 describe("parseDirection", () => {
