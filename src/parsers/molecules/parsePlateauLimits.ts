@@ -1,4 +1,4 @@
-import type { Coordinates } from "../../definitions";
+import type { Coordinates } from "../../shared/definitions";
 import { parseCoordinate } from "../atoms";
 
 export const parsePlateauLimits = (input: unknown): Coordinates => {

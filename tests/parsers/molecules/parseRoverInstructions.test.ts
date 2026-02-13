@@ -1,5 +1,5 @@
 import { describe, test, expect } from "bun:test";
-import { Instruction } from "../../../src/definitions";
+import { Instruction } from "../../../src/shared/definitions";
 import { parseRoverInstructions } from "../../../src/parsers/molecules/parseRoverInstructions";
 
 describe("parseRoverInstructions", () => {

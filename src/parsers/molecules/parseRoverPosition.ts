@@ -1,4 +1,4 @@
-import { type PositionData } from "../../definitions";
+import { type PositionData } from "../../shared/definitions";
 import { parseCoordinate, parseDirection } from "../atoms";
 
 export const parseRoverPosition = (input: unknown): PositionData => {

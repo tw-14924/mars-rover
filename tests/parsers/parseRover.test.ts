@@ -1,4 +1,4 @@
-import type { RoverData } from "../../src/definitions";
+import type { RoverData } from "../../src/shared/definitions";
 import { parseRover } from "../../src/parsers/parseRover";
 import { describe, test, expect } from "bun:test";
 

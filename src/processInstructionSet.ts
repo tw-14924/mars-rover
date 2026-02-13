@@ -1,7 +1,7 @@
-import { isMoveInstruction, isRotateInstruction } from "./src/typeguards";
-import { moveRover, rotateRover } from "./src/engine/controlRover";
-import type { ProcessedResults, RawInput } from "./src/definitions";
-import { parseInstructionSet } from "./src/parsers";
+import { isMoveInstruction, isRotateInstruction } from "./shared/typeguards";
+import { moveRover, rotateRover } from "./engine/controlRover";
+import type { ProcessedResults, RawInput } from "./shared/definitions";
+import { parseInstructionSet } from "./parsers";
 
 const processInstructionSet = (rawInput: RawInput): ProcessedResults => {
     const returnArray: ProcessedResults = [];

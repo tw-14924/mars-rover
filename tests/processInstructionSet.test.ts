@@ -1,6 +1,6 @@
-import { processInstructionSet } from ".";
 import { describe, test, expect } from "bun:test";
-import type { ProcessedResults } from "./src/definitions";
+import { processInstructionSet } from "../src/processInstructionSet";
+import type { ProcessedResults } from "../src/shared/definitions";
 
 // prettier-ignore
 const testInput = [

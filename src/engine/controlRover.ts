@@ -1,14 +1,6 @@
-import {
-    Direction,
-    Instruction,
-    type Coordinates,
-    type PositionData,
-} from "../definitions";
+import { Direction, Instruction, type Coordinates, type PositionData } from "../shared/definitions";
 
-const rotations: Record<
-    Direction,
-    Record<Exclude<Instruction, typeof Instruction.MOVE>, Direction>
-> = {
+const rotations: Record<Direction, Record<Exclude<Instruction, typeof Instruction.MOVE>, Direction>> = {
     [Direction.NORTH]: {
         [Instruction.LEFT]: Direction.WEST,
         [Instruction.RIGHT]: Direction.EAST,
@@ -47,11 +39,7 @@ const rotateRover = (
     };
 };
 
-const moveRover = (
-    position: PositionData,
-    limits: Coordinates,
-    allRoverCoordinates: Coordinates[],
-): PositionData => {
+const moveRover = (position: PositionData, limits: Coordinates, allRoverCoordinates: Coordinates[]): PositionData => {
     const coordinates = position.coordinates;
     const direction = position.direction;
     const x = coordinates[0];

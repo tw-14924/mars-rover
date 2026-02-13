@@ -1,4 +1,4 @@
-import { Direction } from "../../../src/definitions";
+import { Direction } from "../../../src/shared/definitions";
 import { parseDirection } from "../../../src/parsers/atoms";
 import { describe, test, expect } from "bun:test";
 

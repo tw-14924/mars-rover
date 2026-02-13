@@ -1,4 +1,4 @@
-import type { InstructionSet } from "../../src/definitions";
+import type { InstructionSet } from "../../src/shared/definitions";
 import { parseInstructionSet } from "../../src/parsers/parseInstructionSet";
 import { describe, test, expect } from "bun:test";
 

@@ -1,5 +1,5 @@
-import { Direction } from "../../definitions";
-import { isDirection } from "../../typeguards";
+import { Direction } from "../../shared/definitions";
+import { isDirection } from "../../shared/typeguards";
 
 export const parseDirection = (input: unknown): Direction => {
     const context = "parseDirection";

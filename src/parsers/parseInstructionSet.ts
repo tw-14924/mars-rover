@@ -1,4 +1,4 @@
-import type { InstructionSet } from "../definitions";
+import type { InstructionSet } from "../shared/definitions";
 import { parsePlateauLimits } from "./molecules";
 import { parseRover } from "./parseRover";
 
