@@ -1,6 +1,7 @@
 type RawInput = unknown[][];
-
 type Coordinates = [number, number];
+type FinalPosition = [number, number, Direction];
+type ProcessedResults = FinalPosition[];
 
 const Direction = {
     NORTH: "N",
@@ -10,40 +11,28 @@ const Direction = {
 } as const;
 type Direction = (typeof Direction)[keyof typeof Direction];
 
-type PositionData = {
-    coordinates: Coordinates;
-    direction: Direction;
-};
-
 const Instruction = {
     LEFT: "L",
     RIGHT: "R",
     MOVE: "M",
 } as const;
-
 type Instruction = (typeof Instruction)[keyof typeof Instruction];
 
-type RoverData = {
+interface PositionData {
+    coordinates: Coordinates;
+    direction: Direction;
+}
+
+interface RoverData {
     position: PositionData;
     instructions: Instruction[];
-};
+}
 
-type InstructionSet = {
+interface InstructionSet {
     plateauLimits: Coordinates;
     rovers: RoverData[];
-};
-
-type FinalPosition = [number, number, Direction];
-
-type ProcessedResults = FinalPosition[];
+}
 
 export { Direction, Instruction };
 
-export type {
-    RawInput,
-    Coordinates,
-    PositionData,
-    RoverData,
-    InstructionSet,
-    ProcessedResults,
-};
+export type { RawInput, Coordinates, PositionData, RoverData, InstructionSet, ProcessedResults };
