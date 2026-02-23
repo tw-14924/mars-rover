@@ -1,7 +1,7 @@
 import { isMoveInstruction, isRotateInstruction } from "./shared/typeguards";
-import { moveRover, rotateRover } from "./engine/controlRover";
 import type { ProcessedResults, RawInput } from "./shared/definitions";
 import { parseInstructionSet } from "./parsers";
+import { Rover } from "./engine/Rover";
 
 const processInstructionSet = (rawInput: RawInput): ProcessedResults => {
     const returnArray: ProcessedResults = [];
@@ -14,35 +14,23 @@ const processInstructionSet = (rawInput: RawInput): ProcessedResults => {
         }
 
         for (const currentRover of rovers) {
-            let updatedRoverPosition = currentRover.position;
+            const roverEntity = new Rover(currentRover.position);
 
             const otherRoversCoordinates = rovers
                 .filter((rover) => rover !== currentRover)
                 .map((rover) => rover.position.coordinates);
 
             for (const instruction of currentRover.instructions) {
-                console.log("start position: ", currentRover.position);
-                console.log("Instruction: ", instruction);
-
                 if (isMoveInstruction(instruction)) {
-                    console.log("performing move instruction");
-
-                    updatedRoverPosition = moveRover(updatedRoverPosition, plateauLimits, otherRoversCoordinates);
+                    roverEntity.move(plateauLimits, otherRoversCoordinates);
                 } else if (isRotateInstruction(instruction)) {
-                    console.log("performing rotate instruction");
-                    updatedRoverPosition = rotateRover(updatedRoverPosition, instruction);
+                    roverEntity.rotate(instruction);
                 }
-
-                console.log("updatedRoverPosition: ", updatedRoverPosition);
-                console.log("***********************************");
             }
 
-            currentRover.position = updatedRoverPosition;
-            returnArray.push([
-                updatedRoverPosition.coordinates[0],
-                updatedRoverPosition.coordinates[1],
-                updatedRoverPosition.direction,
-            ]);
+            const finalState = roverEntity.state;
+            currentRover.position = finalState;
+            returnArray.push([finalState.coordinates[0], finalState.coordinates[1], finalState.direction]);
         }
     } catch (error) {
         console.error("Something went wrong:", error);
