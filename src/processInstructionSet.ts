@@ -13,28 +13,20 @@ const processInstructionSet = (rawInput: RawInput): ProcessedResults => {
             return returnArray;
         }
 
-        for (const currentRover of rovers) {
-            let updatedRoverPosition = currentRover.position;
+        const currentRoverPositions = rovers.map((rover) => rover.position.coordinates);
 
-            const otherRoversCoordinates = rovers
-                .filter((rover) => rover !== currentRover)
-                .map((rover) => rover.position.coordinates);
+        for (const [i, currentRover] of rovers.entries()) {
+            let updatedRoverPosition = currentRover.position;
+            const otherRoversCoordinates = currentRoverPositions.filter((_, index) => index !== i);
 
             for (const instruction of currentRover.instructions) {
-                console.log("start position: ", currentRover.position);
-                console.log("Instruction: ", instruction);
-
                 if (isMoveInstruction(instruction)) {
-                    console.log("performing move instruction");
-
                     updatedRoverPosition = moveRover(updatedRoverPosition, plateauLimits, otherRoversCoordinates);
                 } else if (isRotateInstruction(instruction)) {
-                    console.log("performing rotate instruction");
                     updatedRoverPosition = rotateRover(updatedRoverPosition, instruction);
                 }
 
-                console.log("updatedRoverPosition: ", updatedRoverPosition);
-                console.log("***********************************");
+                currentRoverPositions[i] = updatedRoverPosition.coordinates;
             }
 
             currentRover.position = updatedRoverPosition;
@@ -46,6 +38,7 @@ const processInstructionSet = (rawInput: RawInput): ProcessedResults => {
         }
     } catch (error) {
         console.error("Something went wrong:", error);
+        throw error;
     }
 
     return returnArray;
