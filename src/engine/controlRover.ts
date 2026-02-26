@@ -9,7 +9,7 @@ const rotateRover = (
     const newDirection = rotations[direction][instruction];
 
     return {
-        coordinates: position.coordinates,
+        coordinates: [...position.coordinates],
         direction: newDirection,
     };
 };
